@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import { StatusBar } from "expo-status-bar";
 import {
   Keyboard,
@@ -12,6 +14,17 @@ import TitleInput from "../components/TitleInput";
 import Routine from "../components/Routine";
 
 export default function MainScreen() {
+  const [date, setDate] = useState<string>("");
+
+  useEffect(() => {
+    const today = new Date();
+    const currentDate = `${today.toLocaleString("en-us", {
+      month: "short",
+    })}, ${today.getUTCDate()}`;
+
+    setDate(currentDate);
+  }, []);
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -22,7 +35,7 @@ export default function MainScreen() {
             underlayColor="#006de9"
             activeOpacity={0.5}
           >
-            <Text style={styles.btnText}>Today</Text>
+            <Text style={styles.btnText}>{date}</Text>
           </TouchableHighlight>
         </View>
         <View style={styles.contents}>
@@ -45,7 +58,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
   },
   btnText: {
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: "600",
     color: "#FFFFFF",
   },
