@@ -14,16 +14,16 @@ export default function TodoItem() {
     <View style={styles.container}>
       <View style={styles.checkbox}>
         <Pressable
-          style={[styles.checkboxbase, checked && styles.checkboxchecked]}
+          style={[styles.checkboxBase, checked && styles.checkboxChecked]}
           onPress={onCheckboxPress}
         >
           {checked && <Entypo name="check" size={18} color="#006de9" />}
         </Pressable>
       </View>
-      <View style={styles.textinput}>
+      <View style={styles.textInput}>
         <TextInput
           placeholder="Click Here"
-          style={styles.todoinput}
+          style={styles.todoInput}
           returnKeyType="done"
         />
       </View>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   checkbox: {
     paddingVertical: 10,
   },
-  checkboxbase: {
+  checkboxBase: {
     width: 20,
     height: 20,
     alignItems: "center",
@@ -50,13 +50,13 @@ const styles = StyleSheet.create({
     borderColor: "#006de9",
     backgroundColor: "transparent",
   },
-  checkboxchecked: {
+  checkboxChecked: {
     backgroundColor: "#ffffff",
   },
-  textinput: {
+  textInput: {
     width: "100%",
   },
-  todoinput: {
+  todoInput: {
     fontSize: 15,
     backgroundColor: "#FFFFFF",
     justifyContent: "center",
