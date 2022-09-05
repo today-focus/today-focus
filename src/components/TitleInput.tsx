@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: "#808080",
     justifyContent: "center",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 5,
     marginHorizontal: 20,
   },
 });
