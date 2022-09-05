@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 
 import { StatusBar } from "expo-status-bar";
 import {
@@ -6,15 +6,32 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import type { StackScreenProps } from "@react-navigation/stack";
+
+import BottomSheet from "@gorhom/bottom-sheet";
 
 import TitleInput from "../components/TitleInput";
 import Routine from "../components/Routine";
 
-export default function MainScreen() {
+type RootStackParamList = {
+  MainScreen: undefined;
+  WelcomeScreen: undefined;
+};
+
+type Props = StackScreenProps<RootStackParamList, "MainScreen">;
+
+export default function MainScreen({ navigation }: Props) {
   const [date, setDate] = useState<string>("");
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const snapPoints = useMemo(() => ["20%", "100%"], []);
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log("handleSheetChanges", index);
+  }, []);
 
   useEffect(() => {
     const today = new Date();
@@ -42,6 +59,24 @@ export default function MainScreen() {
           <TitleInput />
           <Routine />
         </View>
+        <View style={styles.bottomSheetContainer}>
+          <BottomSheet
+            ref={bottomSheetRef}
+            index={1}
+            snapPoints={snapPoints}
+            backgroundStyle={styles.bottomSheetBackground}
+            handleIndicatorStyle={styles.handleIndicator}
+            onChange={handleSheetChanges}
+          >
+            <View style={styles.contentContainer}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("WelcomeScreen")}
+              >
+                <Text>Temporary Awesome Text 🧐</Text>
+              </TouchableOpacity>
+            </View>
+          </BottomSheet>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -63,11 +98,27 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   contents: {
-    flex: 1,
+    flex: 1.8,
     backgroundColor: "#FFFFFF",
     borderTopStartRadius: 50,
     borderTopEndRadius: 50,
     paddingHorizontal: 20,
     marginTop: 50,
+  },
+  bottomSheetContainer: {
+    flex: 1,
+    padding: 24,
+    backgroundColor: "#fff",
+  },
+  bottomSheetBackground: {
+    backgroundColor: "#006de9",
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: "#006de9",
+  },
+  handleIndicator: {
+    backgroundColor: "#fff",
   },
 });
