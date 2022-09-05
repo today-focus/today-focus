@@ -3,14 +3,14 @@ import { StyleSheet, View, Text, TextInput } from "react-native";
 export default function Routine() {
   return (
     <View>
-      <Text style={styles.routinlabel}>Today Routine</Text>
-      <TextInput style={styles.routineinput} multiline />
+      <Text style={styles.routineLabel}>Today Routine</Text>
+      <TextInput style={styles.routineInput} multiline />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  routinlabel: {
+  routineLabel: {
     fontSize: 15,
     fontWeight: "700",
     color: "#006de9",
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     marginTop: 35,
     marginBottom: 15,
   },
-  routineinput: {
+  routineInput: {
     fontSize: 15,
     backgroundColor: "#FFFFFF",
     justifyContent: "center",
