@@ -13,7 +13,11 @@ type Props = StackScreenProps<RootStackParamList, "WelcomeScreen">;
 
 function WelcomeScreen({ navigation }: Props) {
   return (
-    <TouchableWithoutFeedback onPress={() => navigation.navigate("MainScreen")}>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        navigation.navigate("MainScreen");
+      }}
+    >
       <View style={styles.container}>
         <Image
           style={styles.tinyLogo}

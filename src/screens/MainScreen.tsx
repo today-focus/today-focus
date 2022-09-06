@@ -22,7 +22,7 @@ export default function MainScreen() {
     const today = new Date();
     const currentDate = `${today.toLocaleString("en-us", {
       month: "short",
-    })}, ${today.getUTCDate()}`;
+    })}, ${today.getDate()}`;
 
     setDate(currentDate);
   }, []);
