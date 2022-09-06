@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import { useState, useEffect } from "react";
 
 import { StatusBar } from "expo-status-bar";
@@ -72,21 +71,5 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 50,
     paddingHorizontal: 20,
     marginTop: 50,
-  },
-  bottomSheetContainer: {
-    flex: 1,
-    padding: 24,
-    backgroundColor: "#fff",
-  },
-  bottomSheetBackground: {
-    backgroundColor: "#006de9",
-  },
-  contentContainer: {
-    flex: 1,
-    alignItems: "center",
-    backgroundColor: "#006de9",
-  },
-  handleIndicator: {
-    backgroundColor: "#fff",
   },
 });

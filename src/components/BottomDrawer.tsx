@@ -33,28 +33,6 @@ export default function BottomDrawer() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#006de9",
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 100,
-  },
-  btnText: {
-    fontSize: 28,
-    fontWeight: "600",
-    color: "#FFFFFF",
-  },
-  contents: {
-    flex: 1.8,
-    backgroundColor: "#FFFFFF",
-    borderTopStartRadius: 50,
-    borderTopEndRadius: 50,
-    paddingHorizontal: 20,
-    marginTop: 50,
-  },
   bottomSheetContainer: {
     flex: 1,
     padding: 24,
@@ -63,12 +41,12 @@ const styles = StyleSheet.create({
   bottomSheetBackground: {
     backgroundColor: "#006de9",
   },
+  handleIndicator: {
+    backgroundColor: "#fff",
+  },
   contentContainer: {
     flex: 1,
     alignItems: "center",
     backgroundColor: "#006de9",
-  },
-  handleIndicator: {
-    backgroundColor: "#fff",
   },
 });
