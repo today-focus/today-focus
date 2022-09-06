@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+/* eslint-disable react/jsx-props-no-spreading */
+import { useState, useEffect } from "react";
 
 import { StatusBar } from "expo-status-bar";
 import {
@@ -6,32 +7,16 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import type { StackScreenProps } from "@react-navigation/stack";
-
-import BottomSheet from "@gorhom/bottom-sheet";
 
 import TitleInput from "../components/TitleInput";
 import Routine from "../components/Routine";
+import BottomDrawer from "../components/BottomDrawer";
 
-type RootStackParamList = {
-  MainScreen: undefined;
-  WelcomeScreen: undefined;
-};
-
-type Props = StackScreenProps<RootStackParamList, "MainScreen">;
-
-export default function MainScreen({ navigation }: Props) {
+export default function MainScreen() {
   const [date, setDate] = useState<string>("");
-  const bottomSheetRef = useRef<BottomSheet>(null);
-
-  const snapPoints = useMemo(() => ["20%", "100%"], []);
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
 
   useEffect(() => {
     const today = new Date();
@@ -59,24 +44,7 @@ export default function MainScreen({ navigation }: Props) {
           <TitleInput />
           <Routine />
         </View>
-        <View style={styles.bottomSheetContainer}>
-          <BottomSheet
-            ref={bottomSheetRef}
-            index={1}
-            snapPoints={snapPoints}
-            backgroundStyle={styles.bottomSheetBackground}
-            handleIndicatorStyle={styles.handleIndicator}
-            onChange={handleSheetChanges}
-          >
-            <View style={styles.contentContainer}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("WelcomeScreen")}
-              >
-                <Text>Temporary Awesome Text 🧐</Text>
-              </TouchableOpacity>
-            </View>
-          </BottomSheet>
-        </View>
+        <BottomDrawer />
       </View>
     </TouchableWithoutFeedback>
   );

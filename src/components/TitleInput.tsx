@@ -3,10 +3,10 @@ import { StyleSheet, View, Text, TextInput } from "react-native";
 export default function TitleInput() {
   return (
     <View>
-      <Text style={styles.titlelabel}>Today's Title</Text>
+      <Text style={styles.titleLabel}>Today's Title</Text>
       <TextInput
         placeholder="What is your focus for today?"
-        style={styles.titleinput}
+        style={styles.titleInput}
         multiline
       />
     </View>
@@ -14,7 +14,7 @@ export default function TitleInput() {
 }
 
 const styles = StyleSheet.create({
-  titlelabel: {
+  titleLabel: {
     fontSize: 15,
     fontWeight: "700",
     color: "#006de9",
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     marginTop: 35,
     marginBottom: 15,
   },
-  titleinput: {
+  titleInput: {
     fontSize: 15,
     backgroundColor: "#FFFFFF",
     borderBottomWidth: 0.5,
