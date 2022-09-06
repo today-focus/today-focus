@@ -6,12 +6,8 @@ import {
 } from "react-native";
 import type { StackScreenProps } from "@react-navigation/stack";
 
+import { RootStackParamList } from "../types/types";
 import tooltipImg from "../assets/tap-here-icon.png";
-
-type RootStackParamList = {
-  MainScreen: undefined;
-  WelcomeScreen: undefined;
-};
 
 type Props = StackScreenProps<RootStackParamList, "WelcomeScreen">;
 
