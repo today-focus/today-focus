@@ -1,14 +1,47 @@
-import { useState } from "react";
+import { SetStateAction, useState, useEffect } from "react";
 import { Pressable, StyleSheet, View, TextInput } from "react-native";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { Entypo } from "@expo/vector-icons";
 
+const STORAGE_TODO_KEY = "@todo";
+
 export default function TodoItem() {
   const [checked, setChecked] = useState<boolean>(false);
+  const [todo, setTodo] = useState<string>("");
 
   const onCheckboxPress = () => {
     setChecked(!checked);
   };
+
+  const onChangeTodo = (payload: SetStateAction<string>) => {
+    setTodo(payload);
+  };
+
+  const onSaveTodo = async () => {
+    try {
+      await AsyncStorage.setItem(STORAGE_TODO_KEY, todo);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onLoadTodo = async () => {
+    try {
+      const value = await AsyncStorage.getItem(STORAGE_TODO_KEY);
+
+      if (value !== null) {
+        setTodo(value);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    onLoadTodo();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -25,6 +58,9 @@ export default function TodoItem() {
           placeholder="Click Here"
           style={styles.todoInput}
           returnKeyType="done"
+          value={todo}
+          onChangeText={onChangeTodo}
+          onSubmitEditing={onSaveTodo}
         />
       </View>
     </View>
