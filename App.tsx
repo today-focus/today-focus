@@ -5,10 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import MainScreen from "./src/screens/MainScreen";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
 
-type RootStackParamList = {
-  MainScreen: undefined;
-  WelcomeScreen: undefined;
-};
+import { RootStackParamList } from "./src/types";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
