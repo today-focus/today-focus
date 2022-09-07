@@ -1,8 +1,35 @@
 import { useRef, useMemo, useCallback } from "react";
 
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 
 import BottomSheet from "@gorhom/bottom-sheet";
+
+import Carousel from "./Carousel";
+
+const mockCards = [
+  {
+    index: 1,
+    contents: "test text",
+  },
+  {
+    index: 2,
+    contents: "test text",
+  },
+  {
+    index: 3,
+    contents: "test text",
+  },
+  {
+    index: 4,
+    contents: "test text",
+  },
+  {
+    index: 5,
+    contents: "test text",
+  },
+];
+
+const { width: screenWidth } = Dimensions.get("screen");
 
 export default function BottomDrawer() {
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -23,9 +50,12 @@ export default function BottomDrawer() {
         onChange={handleSheetChanges}
       >
         <View style={styles.contentContainer}>
-          <TouchableOpacity>
-            <Text>Temporary Awesome Text 🧐</Text>
-          </TouchableOpacity>
+          <Carousel
+            cards={mockCards}
+            cardWidth={screenWidth * 0.67}
+            gap={screenWidth * 0.08}
+            offset={screenWidth * 0.1}
+          />
         </View>
       </BottomSheet>
     </View>
@@ -46,7 +76,8 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    alignItems: "center",
+    justifyContent: "flex-start",
+    paddingTop: 20,
     backgroundColor: "#006de9",
   },
 });
