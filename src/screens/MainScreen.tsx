@@ -13,7 +13,7 @@ import {
 import TitleInput from "../components/TitleInput";
 import Routine from "../components/Routine";
 import BottomDrawer from "../components/BottomDrawer";
-import TodoItem from "../components/TodoItem";
+import TodoList from "../components/TodoList";
 
 export default function MainScreen() {
   const [date, setDate] = useState<string>("");
@@ -43,7 +43,7 @@ export default function MainScreen() {
         <View style={styles.contents}>
           <TitleInput />
           <Routine />
-          <TodoItem />
+          <TodoList />
         </View>
         <BottomDrawer />
       </View>
