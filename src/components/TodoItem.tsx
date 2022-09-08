@@ -1,56 +1,32 @@
-import { SetStateAction, useState, useEffect } from "react";
-import { Pressable, StyleSheet, View, TextInput } from "react-native";
+import { SetStateAction } from "react";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Pressable, StyleSheet, TextInput, View } from "react-native";
 
 import { Entypo } from "@expo/vector-icons";
 
-const STORAGE_TODO_KEY = "@todo";
-
-export default function TodoItem() {
-  const [checked, setChecked] = useState<boolean>(false);
-  const [todo, setTodo] = useState<string>("");
-
-  const onCheckboxPress = () => {
-    setChecked(!checked);
-  };
-
-  const onChangeTodo = (payload: SetStateAction<string>) => {
-    setTodo(payload);
-  };
-
-  const onSaveTodo = async () => {
-    try {
-      await AsyncStorage.setItem(STORAGE_TODO_KEY, todo);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const onLoadTodo = async () => {
-    try {
-      const value = await AsyncStorage.getItem(STORAGE_TODO_KEY);
-
-      if (value !== null) {
-        setTodo(value);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    onLoadTodo();
-  }, []);
-
+export default function TodoItem({
+  id,
+  text,
+  isChecked,
+  onCheckboxPress,
+  onChangeText,
+  onSaveTodo,
+}: {
+  id: string;
+  text: string;
+  isChecked: boolean;
+  onCheckboxPress: () => void;
+  onChangeText: (text: SetStateAction<string>) => void;
+  onSaveTodo: () => Promise<void>;
+}) {
   return (
     <View style={styles.container}>
       <View style={styles.checkbox}>
         <Pressable
-          style={[styles.checkboxBase, checked && styles.checkboxChecked]}
+          style={[styles.checkboxBase, isChecked && styles.checkboxChecked]}
           onPress={onCheckboxPress}
         >
-          {checked && <Entypo name="check" size={18} color="#006de9" />}
+          {isChecked && <Entypo name="check" size={18} color="#006de9" />}
         </Pressable>
       </View>
       <View style={styles.textInput}>
@@ -58,8 +34,8 @@ export default function TodoItem() {
           placeholder="Click Here"
           style={styles.todoInput}
           returnKeyType="done"
-          value={todo}
-          onChangeText={onChangeTodo}
+          value={text}
+          onChangeText={onChangeText}
           onSubmitEditing={onSaveTodo}
         />
       </View>
