@@ -4,9 +4,16 @@ export type RootStackParamList = {
   BottomDrawer: undefined;
 }
 
+export interface IRoutineItem {
+  id: number;
+  description: string;
+  status: boolean;
+}
+
 export interface ICardData {
   index: number;
-  contents?: string;
+  routineTitle: string;
+  routineList: IRoutineItem[];
 }
 
 export interface ICarousel {
@@ -14,4 +21,9 @@ export interface ICarousel {
   cardWidth: number;
   gap: number;
   offset: number;
+}
+
+export interface ICarouselCard extends ICarousel{
+  curIndex: number;
+  cardNum: number;
 }
