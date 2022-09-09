@@ -8,24 +8,41 @@ import Carousel from "./Carousel";
 
 const mockCards = [
   {
+    index: 0,
+    routineTitle: "Morning Routine",
+    routineList: [
+      { id: 0, description: "침대 정리", status: false },
+      { id: 1, description: "아침 운동", status: false },
+    ],
+  },
+  {
     index: 1,
-    contents: "test text",
+    routineTitle: "Work Routine",
+    routineList: [
+      { id: 0, description: "자료 조사", status: false },
+      { id: 1, description: "미팅 준비", status: false },
+    ],
   },
   {
     index: 2,
-    contents: "test text",
+    routineTitle: "Diet Routine",
+    routineList: [
+      { id: 0, description: "비타민 복용", status: false },
+      { id: 1, description: "커피 한잔", status: false },
+    ],
   },
   {
     index: 3,
-    contents: "test text",
+    routineTitle: "Bedtime Routine",
+    routineList: [
+      { id: 0, description: "강아지 산책", status: false },
+      { id: 1, description: "요가 스트레칭", status: false },
+    ],
   },
   {
     index: 4,
-    contents: "test text",
-  },
-  {
-    index: 5,
-    contents: "test text",
+    routineTitle: "",
+    routineList: [{ id: 0, description: "", status: false }],
   },
 ];
 
@@ -77,7 +94,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     justifyContent: "flex-start",
-    paddingTop: 20,
+    paddingTop: 30,
     backgroundColor: "#006de9",
   },
 });

@@ -10,6 +10,8 @@ import {
 
 import { ICarousel, ICardData } from "../types";
 
+import CarouselCard from "./CarouselCard";
+
 export default function Carousel({ cards, cardWidth, gap, offset }: ICarousel) {
   const [cardNum, setCardNum] = useState<number>(0);
 
@@ -21,31 +23,8 @@ export default function Carousel({ cards, cardWidth, gap, offset }: ICarousel) {
     setCardNum(newCardNum);
   };
 
-  const renderCards = (curIndex: number) => {
-    const scaleValue = cardNum === curIndex ? 1 : 0.8;
-    const opacityValue = cardNum === curIndex ? 1 : 0.6;
-    const translateYValue = cardNum === curIndex ? 0 : 15;
-
-    return (
-      <View
-        style={[
-          styles.carouselCard,
-          {
-            width: cardWidth,
-            transform: [
-              { scaleY: scaleValue },
-              { translateY: translateYValue },
-            ],
-            opacity: opacityValue,
-            marginHorizontal: gap / 2,
-          },
-        ]}
-      />
-    );
-  };
-
   const renderIndicators = (curIndex: number) => {
-    const indicatorColor = curIndex === cardNum ? "#fff" : "#3e3e3e";
+    const indicatorColor = curIndex === cardNum ? "#fff" : "#a4a4a4";
 
     return (
       <View
@@ -63,10 +42,19 @@ export default function Carousel({ cards, cardWidth, gap, offset }: ICarousel) {
         data={cards}
         decelerationRate="fast"
         horizontal
-        keyExtractor={(card: ICardData) => `routine_${card.index}`}
+        keyExtractor={({ index }: ICardData) => `routine_${index}`}
         onScroll={onScroll}
         pagingEnabled
-        renderItem={({ index }: ICardData) => renderCards(index)}
+        renderItem={({ item }) => (
+          <CarouselCard
+            cards={cards}
+            cardWidth={cardWidth}
+            gap={gap}
+            offset={offset}
+            curIndex={item.index}
+            cardNum={cardNum}
+          />
+        )}
         showsHorizontalScrollIndicator={false}
         snapToInterval={cardWidth + gap}
         snapToAlignment="start"
