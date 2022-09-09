@@ -4,7 +4,7 @@ import { Entypo } from "@expo/vector-icons";
 
 export default function RoutineTemplate() {
   const handleCardClick = () => {
-    console.log("carouselCard clicked!");
+    console.log("Would you like to create a new routine?");
   };
 
   return (

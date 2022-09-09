@@ -21,11 +21,7 @@ export default function CarouselCard({
     const lastTemplateItem = cards.length - 1;
 
     return curIndex !== lastTemplateItem ? (
-      <TodoItem
-        id={item.id}
-        description={item.description}
-        status={item.status}
-      />
+      <TodoItem id={item.id} text={item.text} isChecked={item.isChecked} />
     ) : (
       <RoutineTemplate />
     );
