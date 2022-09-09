@@ -5,9 +5,9 @@ export type RootStackParamList = {
 }
 
 export interface IRoutineItem {
-  id: number;
-  description: string;
-  status: boolean;
+  id: string;
+  text: string;
+  isChecked: boolean;
 }
 
 export interface ICardData {

@@ -11,38 +11,38 @@ const mockCards = [
     index: 0,
     routineTitle: "Morning Routine",
     routineList: [
-      { id: 0, description: "침대 정리", status: false },
-      { id: 1, description: "아침 운동", status: false },
+      { id: "1662706569216", text: "침대 정리", isChecked: false },
+      { id: "1662706569217", text: "아침 운동", isChecked: false },
     ],
   },
   {
     index: 1,
     routineTitle: "Work Routine",
     routineList: [
-      { id: 0, description: "자료 조사", status: false },
-      { id: 1, description: "미팅 준비", status: false },
+      { id: "1662706569218", text: "자료 조사", isChecked: false },
+      { id: "1662706569219", text: "미팅 준비", isChecked: false },
     ],
   },
   {
     index: 2,
     routineTitle: "Diet Routine",
     routineList: [
-      { id: 0, description: "비타민 복용", status: false },
-      { id: 1, description: "커피 한잔", status: false },
+      { id: "1662706569220", text: "비타민 복용", isChecked: false },
+      { id: "1662706569221", text: "커피 한잔", isChecked: false },
     ],
   },
   {
     index: 3,
     routineTitle: "Bedtime Routine",
     routineList: [
-      { id: 0, description: "강아지 산책", status: false },
-      { id: 1, description: "요가 스트레칭", status: false },
+      { id: "1662706569222", text: "강아지 산책", isChecked: false },
+      { id: "1662706569223", text: "요가 스트레칭", isChecked: false },
     ],
   },
   {
     index: 4,
     routineTitle: "",
-    routineList: [{ id: 0, description: "", status: false }],
+    routineList: [{ id: "", text: "", isChecked: false }],
   },
 ];
 

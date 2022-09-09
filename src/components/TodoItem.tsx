@@ -15,9 +15,9 @@ export default function TodoItem({
   id: string;
   text: string;
   isChecked: boolean;
-  onCheckboxPress: () => void;
-  onChangeText: (text: SetStateAction<string>) => void;
-  onSaveTodo: () => Promise<void>;
+  onCheckboxPress?: () => void;
+  onChangeText?: (text: SetStateAction<string>) => void;
+  onSaveTodo?: () => Promise<void>;
 }) {
   return (
     <View style={styles.container}>
