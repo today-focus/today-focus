@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   titleInput: {
     fontSize: 15,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#fff",
     borderBottomWidth: 0.5,
     borderColor: "#808080",
     justifyContent: "center",
