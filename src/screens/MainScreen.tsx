@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   Keyboard,
+  KeyboardAvoidingView,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -29,7 +30,7 @@ export default function MainScreen() {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <StatusBar style="auto" />
         <View style={styles.header}>
           <TouchableHighlight
@@ -46,7 +47,7 @@ export default function MainScreen() {
           <TodoList />
         </View>
         <BottomDrawer />
-      </View>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 }
@@ -64,11 +65,11 @@ const styles = StyleSheet.create({
   btnText: {
     fontSize: 28,
     fontWeight: "600",
-    color: "#FFFFFF",
+    color: "#fff",
   },
   contents: {
     flex: 1.8,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#fff",
     borderTopStartRadius: 50,
     borderTopEndRadius: 50,
     paddingHorizontal: 20,

@@ -63,14 +63,14 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   checkboxChecked: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#fff",
   },
   textInput: {
     width: "100%",
   },
   todoInput: {
     fontSize: 15,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#fff",
     justifyContent: "center",
     paddingVertical: 10,
     paddingHorizontal: 5,
