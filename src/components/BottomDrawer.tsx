@@ -77,7 +77,7 @@ export default function BottomDrawer() {
         />
         <BottomSheetModal
           ref={bottomSheetModalRef}
-          index={0}
+          index={1}
           snapPoints={snapPoints}
           backgroundStyle={styles.bottomSheetBackground}
           handleIndicatorStyle={styles.handleIndicator}
@@ -102,12 +102,12 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#006de9",
+    backgroundColor: "rgba(0, 109, 233, 0.8)",
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
   },
   bottomSheetBackground: {
-    backgroundColor: "#006de9",
+    backgroundColor: "rgba(0, 109, 233, 0.8)",
   },
   handleIndicator: {
     backgroundColor: "#fff",
@@ -116,6 +116,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#006de9",
   },
 });
