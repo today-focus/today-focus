@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import {
   Keyboard,
   KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -29,26 +30,33 @@ export default function MainScreen() {
   }, []);
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <StatusBar style="auto" />
-        <View style={styles.header}>
-          <TouchableHighlight
-            onPress={() => console.log("pressed!")}
-            underlayColor="#006de9"
-            activeOpacity={0.5}
-          >
-            <Text style={styles.btnText}>{date}</Text>
-          </TouchableHighlight>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <StatusBar style="auto" />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <TouchableHighlight
+              onPress={() => console.log("pressed!")}
+              underlayColor="#006de9"
+              activeOpacity={0.5}
+            >
+              <Text style={styles.btnText}>{date}</Text>
+            </TouchableHighlight>
+          </View>
+          <View style={styles.contentsContainer}>
+            <View style={styles.todayRoutineContainer}>
+              <TitleInput />
+              <Routine />
+              <TodoList />
+            </View>
+            <BottomDrawer />
+          </View>
         </View>
-        <View style={styles.contents}>
-          <TitleInput />
-          <Routine />
-          <TodoList />
-        </View>
-        <BottomDrawer />
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -60,19 +68,22 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 100,
+    marginTop: 60,
   },
   btnText: {
     fontSize: 28,
     fontWeight: "600",
     color: "#fff",
   },
-  contents: {
+  contentsContainer: {
     flex: 1.8,
     backgroundColor: "#fff",
     borderTopStartRadius: 50,
     borderTopEndRadius: 50,
+    marginTop: 30,
+  },
+  todayRoutineContainer: {
+    flex: 1,
     paddingHorizontal: 20,
-    marginTop: 50,
   },
 });
