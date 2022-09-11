@@ -34,28 +34,28 @@ export default function MainScreen() {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <StatusBar style="auto" />
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.container}>
-          <View style={styles.header}>
-            <TouchableHighlight
-              onPress={() => console.log("pressed!")}
-              underlayColor="#006de9"
-              activeOpacity={0.5}
-            >
-              <Text style={styles.btnText}>{date}</Text>
-            </TouchableHighlight>
-          </View>
-          <View style={styles.contentsContainer}>
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        <View style={styles.header}>
+          <TouchableHighlight
+            onPress={() => console.log("pressed!")}
+            underlayColor="#006de9"
+            activeOpacity={0.5}
+          >
+            <Text style={styles.btnText}>{date}</Text>
+          </TouchableHighlight>
+        </View>
+        <View style={styles.contentsContainer}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.todayRoutineContainer}>
               <TitleInput />
               <Routine />
               <TodoList />
             </View>
-            <BottomDrawer />
-          </View>
+          </TouchableWithoutFeedback>
+          <BottomDrawer />
         </View>
-      </TouchableWithoutFeedback>
+      </View>
     </KeyboardAvoidingView>
   );
 }
