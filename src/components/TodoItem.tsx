@@ -32,7 +32,7 @@ export default function TodoItem({
       <View style={styles.textInput}>
         <TextInput
           placeholder="Click Here"
-          style={styles.todoInput}
+          style={[styles.todoInput, isChecked && styles.checkedTodoInput]}
           returnKeyType="done"
           value={text}
           onChangeText={onChangeText}
@@ -71,6 +71,17 @@ const styles = StyleSheet.create({
   todoInput: {
     fontSize: 15,
     backgroundColor: "#fff",
+    justifyContent: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+    marginHorizontal: 5,
+  },
+  checkedTodoInput: {
+    fontSize: 15,
+    textDecorationLine: "line-through",
+    textDecorationStyle: "solid",
+    color: "#808080",
+    backgroundColor: "#FFFFFF",
     justifyContent: "center",
     paddingVertical: 10,
     paddingHorizontal: 5,
