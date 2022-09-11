@@ -42,7 +42,6 @@ export default function CarouselCard({
     >
       <Text>{cards[curIndex].routineTitle}</Text>
       <FlatList
-        contentContainerStyle={{}}
         automaticallyAdjustContentInsets={false}
         data={cards[curIndex].routineList}
         keyExtractor={({ id }: IRoutineItem) =>
