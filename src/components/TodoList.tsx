@@ -19,18 +19,26 @@ export default function TodoList() {
     },
   ]);
 
-  const onCheckboxPress = (index: number) => {
+  const onCheckboxPress = async (index: number) => {
     const newTodos = [...todos];
 
-    newTodos[index].isChecked = !newTodos[index].isChecked;
+    if (newTodos[index].text !== "") {
+      newTodos[index].isChecked = !newTodos[index].isChecked;
 
-    setTodos([...newTodos]);
+      setTodos([...newTodos]);
+    }
+
+    await AsyncStorage.setItem(STORAGE_TODOS_KEY, JSON.stringify(todos));
   };
 
   const onChangeText = (index: number, text: string) => {
     const newTodos = [...todos];
 
     newTodos[index].text = text;
+
+    if (text === "") {
+      newTodos[index].isChecked = false;
+    }
 
     setTodos([...newTodos]);
   };
@@ -41,7 +49,7 @@ export default function TodoList() {
 
       if (index + 1 === todos.length) {
         const newTodo = {
-          id: "",
+          id: `${Date.now()}`,
           text: "",
           isChecked: false,
         };
@@ -66,6 +74,8 @@ export default function TodoList() {
   };
 
   useEffect(() => {
+    // AsyncStorage.removeItem(STORAGE_TODOS_KEY);
+
     onLoadTodos();
   }, []);
 
