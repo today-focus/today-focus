@@ -1,8 +1,13 @@
-import { useRef, useMemo, useCallback } from "react";
+import { useCallback, useMemo, useRef } from "react";
 
 import { Dimensions, StyleSheet, View } from "react-native";
 
-import BottomSheet from "@gorhom/bottom-sheet";
+import {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+  BottomSheetView,
+} from "@gorhom/bottom-sheet";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import Carousel from "./Carousel";
 
@@ -49,41 +54,57 @@ const mockCards = [
 const { width: screenWidth } = Dimensions.get("screen");
 
 export default function BottomDrawer() {
-  const bottomSheetRef = useRef<BottomSheet>(null);
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
-  const snapPoints = useMemo(() => ["20%", "100%"], []);
+  const snapPoints = useMemo(() => ["50%", "100%"], []);
+
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
   const handleSheetChanges = useCallback((index: number) => {
     console.log("handleSheetChanges", index);
   }, []);
 
   return (
-    <View style={styles.bottomSheetContainer}>
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={snapPoints}
-        backgroundStyle={styles.bottomSheetBackground}
-        handleIndicatorStyle={styles.handleIndicator}
-        onChange={handleSheetChanges}
-      >
-        <View style={styles.contentContainer}>
-          <Carousel
-            cards={mockCards}
-            cardWidth={screenWidth * 0.67}
-            gap={screenWidth * 0.08}
-            offset={screenWidth * 0.1}
-          />
-        </View>
-      </BottomSheet>
-    </View>
+    <BottomSheetModalProvider>
+      <View style={styles.bottomSheetContainer}>
+        <MaterialIcons
+          name="drag-handle"
+          size={24}
+          color="#fff"
+          title="Present Modal"
+          onPress={handlePresentModalPress}
+        />
+        <BottomSheetModal
+          ref={bottomSheetModalRef}
+          index={0}
+          snapPoints={snapPoints}
+          backgroundStyle={styles.bottomSheetBackground}
+          handleIndicatorStyle={styles.handleIndicator}
+          onChange={handleSheetChanges}
+        >
+          <BottomSheetView style={styles.contentContainer}>
+            <Carousel
+              cards={mockCards}
+              cardWidth={screenWidth * 0.67}
+              gap={screenWidth * 0.08}
+              offset={screenWidth * 0.1}
+            />
+          </BottomSheetView>
+        </BottomSheetModal>
+      </View>
+    </BottomSheetModalProvider>
   );
 }
 
 const styles = StyleSheet.create({
   bottomSheetContainer: {
-    flex: 1,
-    padding: 24,
-    backgroundColor: "#fff",
+    paddingVertical: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#006de9",
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
   },
   bottomSheetBackground: {
     backgroundColor: "#006de9",
@@ -93,8 +114,8 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    justifyContent: "flex-start",
-    paddingTop: 30,
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#006de9",
   },
 });
