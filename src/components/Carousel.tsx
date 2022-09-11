@@ -71,7 +71,6 @@ export default function Carousel({ cards, cardWidth, gap, offset }: ICarousel) {
 const styles = StyleSheet.create({
   carouselContainer: {
     height: "80%",
-    backgroundColor: "#006de9",
   },
   carouselCard: {
     padding: 5,
