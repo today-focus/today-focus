@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useRef } from "react";
 
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, View, Pressable } from "react-native";
 
 import {
   BottomSheetModal,
@@ -67,32 +67,37 @@ export default function BottomDrawer() {
 
   return (
     <BottomSheetModalProvider>
-      <View style={styles.bottomSheetContainer}>
-        <MaterialIcons
-          name="drag-handle"
-          size={24}
-          color="#fff"
-          title="Present Modal"
-          onPress={handlePresentModalPress}
-        />
-        <BottomSheetModal
-          ref={bottomSheetModalRef}
-          index={1}
-          snapPoints={snapPoints}
-          backgroundStyle={styles.bottomSheetBackground}
-          handleIndicatorStyle={styles.handleIndicator}
-          onChange={handleSheetChanges}
-        >
-          <BottomSheetView style={styles.contentContainer}>
-            <Carousel
-              cards={mockCards}
-              cardWidth={screenWidth * 0.67}
-              gap={screenWidth * 0.08}
-              offset={screenWidth * 0.1}
-            />
-          </BottomSheetView>
-        </BottomSheetModal>
-      </View>
+      <Pressable
+        onPress={handlePresentModalPress}
+        style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1.0 }]}
+      >
+        <View style={styles.bottomSheetContainer}>
+          <MaterialIcons
+            name="drag-handle"
+            size={24}
+            color="#fff"
+            title="Present Modal"
+            onPress={handlePresentModalPress}
+          />
+          <BottomSheetModal
+            ref={bottomSheetModalRef}
+            index={1}
+            snapPoints={snapPoints}
+            backgroundStyle={styles.bottomSheetBackground}
+            handleIndicatorStyle={styles.handleIndicator}
+            onChange={handleSheetChanges}
+          >
+            <BottomSheetView style={styles.contentContainer}>
+              <Carousel
+                cards={mockCards}
+                cardWidth={screenWidth * 0.67}
+                gap={screenWidth * 0.08}
+                offset={screenWidth * 0.1}
+              />
+            </BottomSheetView>
+          </BottomSheetModal>
+        </View>
+      </Pressable>
     </BottomSheetModalProvider>
   );
 }
