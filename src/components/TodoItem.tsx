@@ -17,6 +17,7 @@ export default function TodoItem({
   onCheckboxPress,
   onChangeText,
   onSaveTodo,
+  onDeleteTodo,
 }: {
   id: string;
   text: string;
@@ -24,6 +25,7 @@ export default function TodoItem({
   onCheckboxPress?: () => void;
   onChangeText?: (text: SetStateAction<string>) => void;
   onSaveTodo?: () => Promise<void>;
+  onDeleteTodo: () => void;
 }) {
   return (
     <View style={styles.container}>
@@ -44,10 +46,7 @@ export default function TodoItem({
           onChangeText={onChangeText}
           onSubmitEditing={onSaveTodo}
         />
-        <TouchableOpacity
-          onPress={() => console.log("pressed!")}
-          activeOpacity={0.5}
-        >
+        <TouchableOpacity onPress={onDeleteTodo} activeOpacity={0.5}>
           {text !== "" && <AntDesign name="delete" size={20} color="#808080" />}
         </TouchableOpacity>
       </View>
