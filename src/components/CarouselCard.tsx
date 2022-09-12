@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { Animated, Dimensions, FlatList, StyleSheet, Text } from "react-native";
 
 import { ICarouselCard, IRoutineItem } from "../types";
 
@@ -11,11 +11,31 @@ export default function CarouselCard({
   gap,
   curIndex,
   cardNum,
+  scrollX,
 }: ICarouselCard) {
-  const scaleValue = cardNum !== curIndex ? 0.8 : 1;
-  const translateYValue = cardNum !== curIndex ? 15 : 0;
-  const opacityValue =
-    cardNum !== curIndex || curIndex === cards.length - 1 ? 0.6 : 1;
+  const inputRange = [
+    (curIndex - 1) * (cardWidth + gap),
+    curIndex * (cardWidth + gap),
+    (curIndex + 1) * (cardWidth + gap),
+  ];
+
+  const cardScaleY = scrollX.interpolate({
+    inputRange,
+    outputRange: [0.8, 1, 0.8],
+    extrapolate: "clamp",
+  });
+
+  const cardTranslateY = scrollX.interpolate({
+    inputRange,
+    outputRange: [15, 0, 15],
+    extrapolate: "clamp",
+  });
+
+  const cardOpacity = scrollX.interpolate({
+    inputRange,
+    outputRange: [0.3, 1, 0.3],
+    extrapolate: "clamp",
+  });
 
   const renderItem = (item: IRoutineItem) => {
     const lastTemplateItem = cards.length - 1;
@@ -28,15 +48,14 @@ export default function CarouselCard({
   };
 
   return (
-    <View
+    <Animated.View
       style={[
         styles.carouselCard,
         {
-          width: cardWidth,
           marginHorizontal: gap / 2,
           padding: 15,
-          transform: [{ scaleY: scaleValue }, { translateY: translateYValue }],
-          opacity: opacityValue,
+          transform: [{ scaleY: cardScaleY }, { translateY: cardTranslateY }],
+          opacity: cardOpacity,
         },
       ]}
     >
@@ -49,12 +68,13 @@ export default function CarouselCard({
         }
         renderItem={({ item }) => renderItem(item)}
       />
-    </View>
+    </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
   carouselCard: {
+    width: Dimensions.get("screen").width * 0.67,
     padding: 5,
     borderRadius: 25,
     backgroundColor: "#fff",

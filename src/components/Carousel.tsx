@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import {
-  FlatList,
+  Animated,
   NativeSyntheticEvent,
   NativeScrollEvent,
   StyleSheet,
@@ -11,9 +11,11 @@ import {
 import { ICarousel, ICardData } from "../types";
 
 import CarouselCard from "./CarouselCard";
+import Paginator from "./Paginator";
 
 export default function Carousel({ cards, cardWidth, gap, offset }: ICarousel) {
   const [cardNum, setCardNum] = useState<number>(0);
+  const scrollX = useRef<Animated.Value>(new Animated.Value(0)).current;
 
   const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const newCardNum = Math.round(
@@ -23,27 +25,31 @@ export default function Carousel({ cards, cardWidth, gap, offset }: ICarousel) {
     setCardNum(newCardNum);
   };
 
-  const renderIndicators = (curIndex: number) => {
-    const indicatorColor = curIndex === cardNum ? "#fff" : "#a4a4a4";
-
-    return (
-      <View
-        key={`indicator_${curIndex}`}
-        style={[styles.indicator, { backgroundColor: indicatorColor }]}
-      />
-    );
-  };
+  const onScrollEvent = Animated.event(
+    [
+      {
+        nativeEvent: {
+          contentOffset: { x: scrollX },
+        },
+      },
+    ],
+    {
+      listener: (e: NativeSyntheticEvent<NativeScrollEvent>) => onScroll(e),
+      useNativeDriver: true,
+    },
+  );
 
   return (
     <View style={styles.carouselContainer}>
-      <FlatList
+      <Animated.FlatList
         automaticallyAdjustContentInsets={false}
+        bounces={false}
         contentContainerStyle={{ paddingHorizontal: offset + gap / 2 }}
         data={cards}
         decelerationRate="fast"
         horizontal
         keyExtractor={({ index }: ICardData) => `routine_${index}`}
-        onScroll={onScroll}
+        onScroll={onScrollEvent}
         pagingEnabled
         renderItem={({ item }) => (
           <CarouselCard
@@ -53,17 +59,15 @@ export default function Carousel({ cards, cardWidth, gap, offset }: ICarousel) {
             offset={offset}
             curIndex={item.index}
             cardNum={cardNum}
+            scrollX={scrollX}
           />
         )}
+        scrollEventThrottle={1}
         showsHorizontalScrollIndicator={false}
         snapToInterval={cardWidth + gap}
         snapToAlignment="start"
       />
-      <View style={styles.indicatorContainer}>
-        {Array.from({ length: cards.length }, (_, curIndex) => curIndex).map(
-          curIndex => renderIndicators(curIndex),
-        )}
-      </View>
+      <Paginator data={cards} scrollX={scrollX} pageWidth={cardWidth + gap} />
     </View>
   );
 }
@@ -85,13 +89,5 @@ const styles = StyleSheet.create({
   indicatorContainer: {
     flexDirection: "row",
     justifyContent: "center",
-  },
-  indicator: {
-    width: 6,
-    height: 6,
-    backgroundColor: "#000",
-    marginTop: 15,
-    marginHorizontal: 5,
-    borderRadius: 10,
   },
 });
