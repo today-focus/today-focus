@@ -1,8 +1,14 @@
 import { SetStateAction } from "react";
 
-import { Pressable, StyleSheet, TextInput, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, AntDesign } from "@expo/vector-icons";
 
 export default function TodoItem({
   id,
@@ -38,6 +44,12 @@ export default function TodoItem({
           onChangeText={onChangeText}
           onSubmitEditing={onSaveTodo}
         />
+        <TouchableOpacity
+          onPress={() => console.log("pressed!")}
+          activeOpacity={0.5}
+        >
+          {text !== "" && <AntDesign name="delete" size={20} color="#808080" />}
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -67,6 +79,8 @@ const styles = StyleSheet.create({
   },
   textInput: {
     width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
   },
   todoInput: {
     fontSize: 15,
