@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useRef } from "react";
 
-import { Dimensions, StyleSheet, View, Pressable } from "react-native";
+import { Pressable, StyleSheet, View, useWindowDimensions } from "react-native";
 
 import {
   BottomSheetModal,
@@ -51,9 +51,8 @@ const mockCards = [
   },
 ];
 
-const { width: screenWidth } = Dimensions.get("screen");
-
 export default function BottomDrawer() {
+  const { width: screenWidth } = useWindowDimensions();
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   const snapPoints = useMemo(() => ["50%", "100%"], []);
@@ -113,6 +112,8 @@ const styles = StyleSheet.create({
   },
   bottomSheetBackground: {
     backgroundColor: "rgba(0, 109, 233, 0.8)",
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
   },
   handleIndicator: {
     backgroundColor: "#fff",
