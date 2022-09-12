@@ -79,6 +79,20 @@ export default function TodoList() {
     onLoadTodos();
   }, []);
 
+  const onDeleteTodo = async (index: number) => {
+    try {
+      const newTodos = todos.filter((item, filterIndex) => {
+        return index !== filterIndex;
+      });
+
+      setTodos([...newTodos]);
+
+      await AsyncStorage.setItem(STORAGE_TODOS_KEY, JSON.stringify(newTodos));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const renderItem = ({
     item,
     index,
@@ -99,6 +113,9 @@ export default function TodoList() {
         }}
         onSaveTodo={async () => {
           await onSaveTodo(index);
+        }}
+        onDeleteTodo={() => {
+          onDeleteTodo(index);
         }}
       />
     );
