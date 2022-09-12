@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
   contentsContainer: {
     flex: 1.8,
     backgroundColor: "#fff",
-    borderTopStartRadius: 50,
-    borderTopEndRadius: 50,
+    borderTopStartRadius: 40,
+    borderTopEndRadius: 40,
     marginTop: 30,
   },
   todayRoutineContainer: {
