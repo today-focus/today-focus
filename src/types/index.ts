@@ -1,3 +1,5 @@
+import { Animated } from "react-native";
+
 export type RootStackParamList = {
   MainScreen: undefined;
   WelcomeScreen: undefined;
@@ -26,4 +28,11 @@ export interface ICarousel {
 export interface ICarouselCard extends ICarousel{
   curIndex: number;
   cardNum: number;
+  scrollX: Animated.Value;
+}
+
+export interface IPageIndicator {
+  data: ICardData[];
+  pageWidth: number;
+  scrollX: Animated.Value;
 }
