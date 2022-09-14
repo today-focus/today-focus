@@ -16,9 +16,11 @@ import TitleInput from "../components/TitleInput";
 import Routine from "../components/Routine";
 import BottomDrawer from "../components/BottomDrawer";
 import TodoList from "../components/TodoList";
+import RenderModal from "../components/RenderModal";
 
 export default function MainScreen() {
   const [date, setDate] = useState<string>("");
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const today = new Date();
@@ -51,9 +53,13 @@ export default function MainScreen() {
               <TitleInput />
               <Routine />
               <TodoList />
+              <RenderModal
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+              />
             </View>
           </TouchableWithoutFeedback>
-          <BottomDrawer />
+          <BottomDrawer setModalVisible={setModalVisible} />
         </View>
       </View>
     </KeyboardAvoidingView>

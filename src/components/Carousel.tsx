@@ -1,9 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, SetStateAction } from "react";
 
 import {
   Animated,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  Pressable,
   StyleSheet,
   View,
 } from "react-native";
@@ -13,7 +14,17 @@ import { ICarousel, ICardData } from "../types";
 import CarouselCard from "./CarouselCard";
 import Paginator from "./Paginator";
 
-export default function Carousel({ cards, cardWidth, gap, offset }: ICarousel) {
+interface IProps extends ICarousel {
+  setModalVisible: React.Dispatch<SetStateAction<boolean>>;
+}
+
+export default function Carousel({
+  cards,
+  cardWidth,
+  gap,
+  offset,
+  setModalVisible,
+}: IProps) {
   const [cardNum, setCardNum] = useState<number>(0);
   const scrollX = useRef<Animated.Value>(new Animated.Value(0)).current;
 
@@ -52,15 +63,17 @@ export default function Carousel({ cards, cardWidth, gap, offset }: ICarousel) {
         onScroll={onScrollEvent}
         pagingEnabled
         renderItem={({ item }) => (
-          <CarouselCard
-            cards={cards}
-            cardWidth={cardWidth}
-            gap={gap}
-            offset={offset}
-            curIndex={item.index}
-            cardNum={cardNum}
-            scrollX={scrollX}
-          />
+          <Pressable onLongPress={() => setModalVisible(true)}>
+            <CarouselCard
+              cards={cards}
+              cardWidth={cardWidth}
+              gap={gap}
+              offset={offset}
+              curIndex={item.index}
+              cardNum={cardNum}
+              scrollX={scrollX}
+            />
+          </Pressable>
         )}
         scrollEventThrottle={1}
         showsHorizontalScrollIndicator={false}

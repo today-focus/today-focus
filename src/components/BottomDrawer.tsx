@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef } from "react";
+import { SetStateAction, useCallback, useMemo, useRef } from "react";
 
 import { Pressable, StyleSheet, View, useWindowDimensions } from "react-native";
 
@@ -51,7 +51,11 @@ const mockCards = [
   },
 ];
 
-export default function BottomDrawer() {
+export default function BottomDrawer({
+  setModalVisible,
+}: {
+  setModalVisible: React.Dispatch<SetStateAction<boolean>>;
+}) {
   const { width: screenWidth } = useWindowDimensions();
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
@@ -92,6 +96,7 @@ export default function BottomDrawer() {
                 cardWidth={screenWidth * 0.67}
                 gap={screenWidth * 0.08}
                 offset={screenWidth * 0.1}
+                setModalVisible={setModalVisible}
               />
             </BottomSheetView>
           </BottomSheetModal>
