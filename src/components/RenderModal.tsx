@@ -14,41 +14,33 @@ export default function RenderModal({
   return (
     <View style={styles.centeredView}>
       {modalVisible && (
-        <>
-          <Modal
-            animationType="slide"
-            transparent
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
+        <Modal
+          animationType="slide"
+          transparent
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
 
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.modalText}>Add more task?</Text>
-                <View style={styles.contentView}>
-                  <Pressable
-                    style={styles.button}
-                    onPress={() => setModalVisible(!modalVisible)}
-                  >
-                    <Text style={styles.cancelBtn}>Cancel</Text>
-                  </Pressable>
-                  <Pressable style={styles.button} onPress={onOkPress}>
-                    <Text style={styles.okBtn}>Ok</Text>
-                  </Pressable>
-                </View>
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Add more task?</Text>
+              <View style={styles.contentView}>
+                <Pressable
+                  style={styles.button}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.cancelBtn}>Cancel</Text>
+                </Pressable>
+                <Pressable style={styles.button} onPress={onOkPress}>
+                  <Text style={styles.okBtn}>Ok</Text>
+                </Pressable>
               </View>
             </View>
-          </Modal>
-          <Pressable
-            style={styles.buttonOpen}
-            onPress={() => setModalVisible(true)}
-          >
-            <Text style={styles.textStyle}>Show Modal</Text>
-          </Pressable>
-        </>
+          </View>
+        </Modal>
       )}
     </View>
   );
@@ -76,6 +68,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     margin: 20,
   },
+  modalText: {
+    padding: 15,
+    textAlign: "center",
+  },
   contentView: {
     flexDirection: "row",
   },
@@ -84,26 +80,14 @@ const styles = StyleSheet.create({
     elevation: 2,
     padding: 10,
   },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  okBtn: {
-    color: "#006de9",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
   cancelBtn: {
     color: "#006de9",
     fontWeight: "bold",
     textAlign: "center",
   },
-  textStyle: {
-    color: "#fff",
+  okBtn: {
+    color: "#006de9",
     fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    padding: 15,
     textAlign: "center",
   },
 });
