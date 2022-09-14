@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 
-import { Entypo, AntDesign } from "@expo/vector-icons";
+import { AntDesign, Entypo, MaterialIcons } from "@expo/vector-icons";
 
 export default function TodoItem({
   id,
@@ -27,8 +27,13 @@ export default function TodoItem({
   onSaveTodo?: () => Promise<void>;
   onDeleteTodo?: () => void;
 }) {
+  const onDragNDrop = () => {};
+
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={onDragNDrop} activeOpacity={0.5}>
+        <MaterialIcons name="drag-indicator" size={20} color="#A9A9A9" />
+      </TouchableOpacity>
       <View style={styles.checkbox}>
         <Pressable
           style={[styles.checkboxBase, isChecked && styles.checkboxChecked]}
