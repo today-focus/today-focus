@@ -47,7 +47,7 @@ export default function TodoList({
 
       if (index + 1 === todos.length) {
         const newTodo = {
-          id: `${Date.now()}`,
+          id: Date.now(),
           routineTitle: `${cardTitleList[cardIndex]}`,
           text: "",
           isChecked: false,
@@ -136,7 +136,7 @@ export default function TodoList({
       <FlatList
         automaticallyAdjustContentInsets={false}
         data={todos}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.id.toString()}
         renderItem={renderItem}
       />
     </SafeAreaView>

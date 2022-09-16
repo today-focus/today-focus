@@ -32,7 +32,6 @@ export default function BottomDrawer({
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
-  const handleSheetChanges = useCallback((index: number) => {}, []);
 
   useEffect(() => {
     const setRoutineTemplate = async () => {
@@ -41,7 +40,7 @@ export default function BottomDrawer({
           "@routine_routineTemplate",
           JSON.stringify([
             {
-              id: `${Date.now()}`,
+              id: Date.now(),
               routineTitle: "routineTemplate",
               text: "",
               isChecked: false,
@@ -94,7 +93,6 @@ export default function BottomDrawer({
             snapPoints={snapPoints}
             backgroundStyle={styles.bottomSheetBackground}
             handleIndicatorStyle={styles.handleIndicator}
-            onChange={handleSheetChanges}
           >
             <BottomSheetView style={styles.contentContainer}>
               <Carousel

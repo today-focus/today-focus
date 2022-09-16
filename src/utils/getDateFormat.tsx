@@ -1,5 +1,5 @@
-export default function getDateFormat(now: number) {
-  const date = new Date(now);
+export default function getDateFormat(milliseconds: number) {
+  const date = new Date(milliseconds);
 
   const [year, month, day] = [
     date.getFullYear(),

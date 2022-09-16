@@ -19,7 +19,7 @@ export default function TodoItem({
   onSaveTodo,
   onDeleteTodo,
 }: {
-  id: string;
+  id: number;
   text: string;
   isChecked: boolean;
   onCheckboxPress?: () => void;
