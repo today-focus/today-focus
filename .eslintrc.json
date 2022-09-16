@@ -39,6 +39,7 @@
     ],
     "react/no-unescaped-entities": "off",
     "react/require-default-props": "off",
+    "react-hooks/exhaustive-deps": "warn",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/no-floating-promises": "off"

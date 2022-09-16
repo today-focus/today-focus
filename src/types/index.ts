@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { Animated } from "react-native";
 
 export type RootStackParamList = {
@@ -6,33 +7,29 @@ export type RootStackParamList = {
   BottomDrawer: undefined;
 }
 
-export interface IRoutineItem {
+export type TodoItemType = {
   id: string;
+  routineTitle: string;
   text: string;
   isChecked: boolean;
 }
 
-export interface ICardData {
-  index: number;
-  routineTitle: string;
-  routineList: IRoutineItem[];
+export type TodoListItem = {
+  cardTitleList: string[];
+  cardIndex: number;
+  setRoutineTitleList: Dispatch<SetStateAction<string[]>>;
+  todoItemList: TodoItemType[];
+  storageKey?: string;
 }
 
-export interface ICarousel {
-  cards: ICardData[];
+export interface ICarouselStyle {
   cardWidth: number;
   gap: number;
   offset: number;
 }
 
-export interface ICarouselCard extends ICarousel{
-  curIndex: number;
-  cardNum: number;
-  scrollX: Animated.Value;
-}
-
 export interface IPageIndicator {
-  data: ICardData[];
+  data: string[];
   pageWidth: number;
   scrollX: Animated.Value;
 }

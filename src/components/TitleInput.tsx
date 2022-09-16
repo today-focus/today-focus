@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, TextInput } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const STORAGE_TITLE_KEY = "@title";
+const STORAGE_TITLE_KEY = "@title_today";
 
 export default function TitleInput() {
   const [title, setTitle] = useState<string>("");
@@ -21,19 +21,19 @@ export default function TitleInput() {
     }
   };
 
-  const onLoadTitle = async () => {
-    try {
-      const value = await AsyncStorage.getItem(STORAGE_TITLE_KEY);
-
-      if (value !== null) {
-        setTitle(value);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const onLoadTitle = async () => {
+      try {
+        const value = await AsyncStorage.getItem(STORAGE_TITLE_KEY);
+
+        if (value !== null) {
+          setTitle(value);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     onLoadTitle();
   }, []);
 
