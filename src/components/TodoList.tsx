@@ -48,7 +48,7 @@ export default function TodoList({
       if (index + 1 === todos.length) {
         const newTodo = {
           id: `${Date.now()}`,
-          routineTitle: "",
+          routineTitle: `${cardTitleList[cardIndex]}`,
           text: "",
           isChecked: false,
         };
@@ -90,7 +90,7 @@ export default function TodoList({
 
       setTodos([...newTodos]);
 
-      await AsyncStorage.setItem(STORAGE_TODOS_KEY, JSON.stringify(newTodos));
+      await AsyncStorage.setItem(storageKey, JSON.stringify(newTodos));
     } catch (error) {
       console.log(error);
     }

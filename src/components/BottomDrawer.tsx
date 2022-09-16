@@ -42,7 +42,7 @@ export default function BottomDrawer({
           JSON.stringify([
             {
               id: `${Date.now()}`,
-              routineTitle: "",
+              routineTitle: "routineTemplate",
               text: "",
               isChecked: false,
             },
