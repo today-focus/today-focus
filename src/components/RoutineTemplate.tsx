@@ -17,7 +17,7 @@ export default function RoutineTemplate({
     const initialTodoList = [
       {
         id: `${Date.now()}`,
-        routineTitle: "untitled",
+        routineTitle: "untitled routine",
         text: "",
         isChecked: false,
       },
