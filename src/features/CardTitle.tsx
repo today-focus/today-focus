@@ -3,6 +3,8 @@ import { TextInput, View } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import getDateFormat from "../utils/getDateFormat";
+
 type Props = {
   cardTitle: string;
   setRoutineTitleList: Dispatch<SetStateAction<string[]>>;
@@ -19,12 +21,29 @@ export default function CardTitle({
   };
 
   const updateRoutineTitle = async () => {
+    const dateMilliseconds = Date.now();
+    const initialTodoList = [
+      {
+        id: dateMilliseconds,
+        routineTitle: getDateFormat(dateMilliseconds),
+        text: "",
+        isChecked: false,
+      },
+    ];
+
     const prevRoutineList = await AsyncStorage.getItem(
       `@routine_${prevRoutineTitle}`,
     );
 
     if (prevRoutineList !== null) {
-      await AsyncStorage.setItem(`@routine_${routineTitle}`, prevRoutineList);
+      if (prevRoutineList.length === 0) {
+        await AsyncStorage.setItem(
+          `@routine_${routineTitle}`,
+          JSON.stringify(initialTodoList),
+        );
+      } else {
+        await AsyncStorage.setItem(`@routine_${routineTitle}`, prevRoutineList);
+      }
     }
 
     await AsyncStorage.removeItem(`@routine_${prevRoutineTitle}`);
@@ -49,9 +68,9 @@ export default function CardTitle({
     }
   };
 
-  const handleEndEditing = () => {
-    updateRoutineTitle();
-    updateRoutineTitleList();
+  const handleEndEditing = async () => {
+    await updateRoutineTitle();
+    await updateRoutineTitleList();
   };
 
   return (
