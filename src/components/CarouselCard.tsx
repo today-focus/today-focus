@@ -1,22 +1,34 @@
-import { Animated, Dimensions, FlatList, StyleSheet, Text } from "react-native";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { Animated, Dimensions, StyleSheet } from "react-native";
 
-import { ICarouselCard, IRoutineItem } from "../types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import RoutineTemplate from "./RoutineTemplate";
-import TodoItem from "./TodoItem";
+import { ICarouselStyle, TodoItemType } from "../types";
+
+import TodoList from "./TodoList";
+import CardTitle from "../features/CardTitle";
+
+interface ICarouselCard extends ICarouselStyle {
+  cardTitleList: string[];
+  cardIndex: number;
+  setRoutineTitleList: Dispatch<SetStateAction<string[]>>;
+  scrollX: Animated.Value;
+}
 
 export default function CarouselCard({
-  cards,
+  cardTitleList,
+  cardIndex,
+  setRoutineTitleList,
   cardWidth,
   gap,
-  curIndex,
-  cardNum,
   scrollX,
 }: ICarouselCard) {
+  const [todoItemList, setTodoItemList] = useState<TodoItemType[]>([]);
+
   const inputRange = [
-    (curIndex - 1) * (cardWidth + gap),
-    curIndex * (cardWidth + gap),
-    (curIndex + 1) * (cardWidth + gap),
+    (cardIndex - 1) * (cardWidth + gap),
+    cardIndex * (cardWidth + gap),
+    (cardIndex + 1) * (cardWidth + gap),
   ];
 
   const cardScaleY = scrollX.interpolate({
@@ -37,15 +49,23 @@ export default function CarouselCard({
     extrapolate: "clamp",
   });
 
-  const renderItem = (item: IRoutineItem) => {
-    const lastTemplateItem = cards.length - 1;
+  useEffect(() => {
+    const onLoadTodos = async () => {
+      try {
+        const todoItems = await AsyncStorage.getItem(
+          `@routine_${cardTitleList[cardIndex]}`,
+        );
 
-    return curIndex !== lastTemplateItem ? (
-      <TodoItem id={item.id} text={item.text} isChecked={item.isChecked} />
-    ) : (
-      <RoutineTemplate />
-    );
-  };
+        if (todoItems !== null) {
+          setTodoItemList(JSON.parse(todoItems) as TodoItemType[]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    onLoadTodos();
+  }, [cardTitleList, cardIndex]);
 
   return (
     <Animated.View
@@ -59,14 +79,18 @@ export default function CarouselCard({
         },
       ]}
     >
-      <Text>{cards[curIndex].routineTitle}</Text>
-      <FlatList
-        automaticallyAdjustContentInsets={false}
-        data={cards[curIndex].routineList}
-        keyExtractor={({ id }: IRoutineItem) =>
-          `routine_${cards[curIndex].routineTitle}_${id}`
-        }
-        renderItem={({ item }) => renderItem(item)}
+      {cardIndex !== cardTitleList.length - 1 && (
+        <CardTitle
+          cardTitle={cardTitleList[cardIndex]}
+          setRoutineTitleList={setRoutineTitleList}
+        />
+      )}
+      <TodoList
+        cardTitleList={cardTitleList}
+        cardIndex={cardIndex}
+        setRoutineTitleList={setRoutineTitleList}
+        todoItemList={todoItemList}
+        storageKey={`@routine_${cardTitleList[cardIndex]}`}
       />
     </Animated.View>
   );
