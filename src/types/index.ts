@@ -8,7 +8,7 @@ export type RootStackParamList = {
 }
 
 export type TodoItemType = {
-  id: string;
+  id: number;
   routineTitle: string;
   text: string;
   isChecked: boolean;
