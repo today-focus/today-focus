@@ -1,40 +1,29 @@
-import { useState, useRef, SetStateAction } from "react";
+import { useState, useRef, Dispatch, SetStateAction } from "react";
+import { Animated, Pressable, StyleSheet, View } from "react-native";
 
-import {
-  Animated,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-  Pressable,
-  StyleSheet,
-  View,
-} from "react-native";
-
-import { ICarousel, ICardData } from "../types";
+import { ICarouselStyle } from "../types";
 
 import CarouselCard from "./CarouselCard";
 import Paginator from "./Paginator";
+
+interface ICarousel extends ICarouselStyle {
+  routineTitleList: string[];
+  setRoutineTitleList: Dispatch<SetStateAction<string[]>>;
+}
 
 interface IProps extends ICarousel {
   setModalVisible: React.Dispatch<SetStateAction<boolean>>;
 }
 
 export default function Carousel({
-  cards,
+  routineTitleList,
+  setRoutineTitleList,
   cardWidth,
   gap,
   offset,
   setModalVisible,
 }: IProps) {
-  const [cardNum, setCardNum] = useState<number>(0);
   const scrollX = useRef<Animated.Value>(new Animated.Value(0)).current;
-
-  const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const newCardNum = Math.round(
-      e.nativeEvent.contentOffset.x / (cardWidth + gap),
-    );
-
-    setCardNum(newCardNum);
-  };
 
   const onScrollEvent = Animated.event(
     [
@@ -45,32 +34,32 @@ export default function Carousel({
       },
     ],
     {
-      listener: (e: NativeSyntheticEvent<NativeScrollEvent>) => onScroll(e),
       useNativeDriver: true,
     },
   );
+
+  const cardTitleList = routineTitleList.concat("routineTemplate");
 
   return (
     <View style={styles.carouselContainer}>
       <Animated.FlatList
         automaticallyAdjustContentInsets={false}
-        bounces={false}
         contentContainerStyle={{ paddingHorizontal: offset + gap / 2 }}
-        data={cards}
+        data={cardTitleList}
         decelerationRate="fast"
         horizontal
-        keyExtractor={({ index }: ICardData) => `routine_${index}`}
+        keyExtractor={(item: string) => `routine_${item}`}
         onScroll={onScrollEvent}
         pagingEnabled
-        renderItem={({ item }) => (
+        renderItem={({ index }) => (
           <Pressable onLongPress={() => setModalVisible(true)}>
             <CarouselCard
-              cards={cards}
+              cardTitleList={cardTitleList}
+              cardIndex={index}
+              setRoutineTitleList={setRoutineTitleList}
               cardWidth={cardWidth}
               gap={gap}
               offset={offset}
-              curIndex={item.index}
-              cardNum={cardNum}
               scrollX={scrollX}
             />
           </Pressable>
@@ -80,7 +69,11 @@ export default function Carousel({
         snapToInterval={cardWidth + gap}
         snapToAlignment="start"
       />
-      <Paginator data={cards} scrollX={scrollX} pageWidth={cardWidth + gap} />
+      <Paginator
+        data={cardTitleList}
+        scrollX={scrollX}
+        pageWidth={cardWidth + gap}
+      />
     </View>
   );
 }
