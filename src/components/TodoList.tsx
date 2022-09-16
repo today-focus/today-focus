@@ -1,23 +1,21 @@
 import { SetStateAction, useState, useEffect } from "react";
-
 import { FlatList, SafeAreaView, StyleSheet } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { TodoItemType, TodoListItem } from "../types";
+
 import TodoItem from "./TodoItem";
+import RoutineTemplate from "./RoutineTemplate";
 
-type TodoItemType = { id: string; text: string; isChecked: boolean };
-
-const STORAGE_TODOS_KEY = "@todos";
-
-export default function TodoList() {
-  const [todos, setTodos] = useState<TodoItemType[]>([
-    {
-      id: `${Date.now()}`,
-      text: "",
-      isChecked: false,
-    },
-  ]);
+export default function TodoList({
+  cardTitleList,
+  cardIndex,
+  setRoutineTitleList,
+  todoItemList,
+  storageKey = "@todos_today",
+}: TodoListItem) {
+  const [todos, setTodos] = useState<TodoItemType[]>(todoItemList);
 
   const onCheckboxPress = async (index: number) => {
     const newTodos = [...todos];
@@ -28,7 +26,7 @@ export default function TodoList() {
       setTodos([...newTodos]);
     }
 
-    await AsyncStorage.setItem(STORAGE_TODOS_KEY, JSON.stringify(todos));
+    await AsyncStorage.setItem(storageKey, JSON.stringify(todos));
   };
 
   const onChangeText = (index: number, text: string) => {
@@ -45,11 +43,12 @@ export default function TodoList() {
 
   const onSaveTodo = async (index: number) => {
     try {
-      await AsyncStorage.setItem(STORAGE_TODOS_KEY, JSON.stringify(todos));
+      await AsyncStorage.setItem(storageKey, JSON.stringify(todos));
 
       if (index + 1 === todos.length) {
         const newTodo = {
           id: `${Date.now()}`,
+          routineTitle: "",
           text: "",
           isChecked: false,
         };
@@ -61,23 +60,27 @@ export default function TodoList() {
     }
   };
 
-  const onLoadTodos = async () => {
-    try {
-      const value = await AsyncStorage.getItem(STORAGE_TODOS_KEY);
-
-      if (value !== null) {
-        setTodos(JSON.parse(value) as TodoItemType[]);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    // AsyncStorage.removeItem(STORAGE_TODOS_KEY);
+    // AsyncStorage.removeItem(storageKey);
+    // AsyncStorage.removeItem("@todos_today");
+    // AsyncStorage.removeItem("@routineTitleList");
+    // AsyncStorage.removeItem("@routine_routineTemplate");
+    // AsyncStorage.removeItem("@routine_untitled routine");
+
+    const onLoadTodos = async () => {
+      try {
+        const itemList = await AsyncStorage.getItem(storageKey);
+
+        if (itemList !== null) {
+          setTodos(JSON.parse(itemList) as TodoItemType[]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
     onLoadTodos();
-  }, []);
+  }, [storageKey]);
 
   const onDeleteTodo = async (index: number) => {
     try {
@@ -100,7 +103,9 @@ export default function TodoList() {
     item: TodoItemType;
     index: number;
   }) => {
-    return (
+    const routineCardLastIndex = cardTitleList.length - 1;
+
+    return cardIndex !== routineCardLastIndex ? (
       <TodoItem
         id={item.id}
         text={item.text}
@@ -118,15 +123,21 @@ export default function TodoList() {
           onDeleteTodo(index);
         }}
       />
+    ) : (
+      <RoutineTemplate
+        cardTitleList={cardTitleList}
+        setRoutineTitleList={setRoutineTitleList}
+      />
     );
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
+        automaticallyAdjustContentInsets={false}
         data={todos}
-        renderItem={renderItem}
         keyExtractor={item => item.id}
+        renderItem={renderItem}
       />
     </SafeAreaView>
   );
