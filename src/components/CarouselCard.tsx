@@ -98,6 +98,7 @@ export default function CarouselCard({
 
 const styles = StyleSheet.create({
   carouselCard: {
+    height: "100%",
     width: Dimensions.get("screen").width * 0.67,
     padding: 5,
     borderRadius: 25,
