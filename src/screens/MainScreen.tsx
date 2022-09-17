@@ -15,7 +15,7 @@ import {
 import TitleInput from "../components/TitleInput";
 import Routine from "../components/Routine";
 import BottomDrawer from "../components/BottomDrawer";
-import TodoList from "../components/TodoList";
+// import TodoList from "../components/TodoList";
 import RenderModal from "../components/RenderModal";
 
 export default function MainScreen() {
@@ -52,7 +52,7 @@ export default function MainScreen() {
             <View style={styles.todayRoutineContainer}>
               <TitleInput />
               <Routine />
-              <TodoList />
+              {/* <TodoList /> */}
               <RenderModal
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
