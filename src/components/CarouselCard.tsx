@@ -8,7 +8,7 @@ import { ICarouselStyle, TodoItemType } from "../types";
 import TodoList from "./TodoList";
 import CardTitle from "../features/CardTitle";
 
-interface ICarouselCard extends ICarouselStyle {
+interface IProps extends ICarouselStyle {
   cardTitleList: string[];
   cardIndex: number;
   setRoutineTitleList: Dispatch<SetStateAction<string[]>>;
@@ -22,7 +22,7 @@ export default function CarouselCard({
   cardWidth,
   gap,
   scrollX,
-}: ICarouselCard) {
+}: IProps) {
   const [todoItemList, setTodoItemList] = useState<TodoItemType[]>([]);
 
   const inputRange = [
@@ -56,9 +56,9 @@ export default function CarouselCard({
           `@routine_${cardTitleList[cardIndex]}`,
         );
 
-        if (todoItems !== null) {
-          setTodoItemList(JSON.parse(todoItems) as TodoItemType[]);
-        }
+        if (todoItems === null) return;
+
+        setTodoItemList(JSON.parse(todoItems) as TodoItemType[]);
       } catch (error) {
         console.log(error);
       }

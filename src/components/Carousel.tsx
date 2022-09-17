@@ -1,4 +1,4 @@
-import { useState, useRef, Dispatch, SetStateAction } from "react";
+import { useRef, Dispatch, SetStateAction } from "react";
 import { Animated, Pressable, StyleSheet, View } from "react-native";
 
 import { ICarouselStyle } from "../types";
@@ -6,13 +6,10 @@ import { ICarouselStyle } from "../types";
 import CarouselCard from "./CarouselCard";
 import Paginator from "./Paginator";
 
-interface ICarousel extends ICarouselStyle {
+interface IProps extends ICarouselStyle {
   routineTitleList: string[];
   setRoutineTitleList: Dispatch<SetStateAction<string[]>>;
-}
-
-interface IProps extends ICarousel {
-  setModalVisible: React.Dispatch<SetStateAction<boolean>>;
+  setModalVisible: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function Carousel({

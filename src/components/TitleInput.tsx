@@ -26,9 +26,9 @@ export default function TitleInput() {
       try {
         const value = await AsyncStorage.getItem(STORAGE_TITLE_KEY);
 
-        if (value !== null) {
-          setTitle(value);
-        }
+        if (value === null) return;
+
+        setTitle(value);
       } catch (error) {
         console.log(error);
       }
