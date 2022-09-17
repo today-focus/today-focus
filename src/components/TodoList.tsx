@@ -61,19 +61,13 @@ export default function TodoList({
   };
 
   useEffect(() => {
-    // AsyncStorage.removeItem(storageKey);
-    // AsyncStorage.removeItem("@todos_today");
-    // AsyncStorage.removeItem("@routineTitleList");
-    // AsyncStorage.removeItem("@routine_routineTemplate");
-    // AsyncStorage.removeItem("@routine_untitled routine");
-
     const onLoadTodos = async () => {
       try {
         const itemList = await AsyncStorage.getItem(storageKey);
 
-        if (itemList !== null) {
-          setTodos(JSON.parse(itemList) as TodoItemType[]);
-        }
+        if (itemList === null) return;
+
+        setTodos(JSON.parse(itemList) as TodoItemType[]);
       } catch (error) {
         console.log(error);
       }

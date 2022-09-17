@@ -62,9 +62,9 @@ export default function BottomDrawer({
           "@routineTitleList",
         );
 
-        if (latestRoutineTitleList !== null) {
-          setRoutineTitleList(JSON.parse(latestRoutineTitleList) as string[]);
-        }
+        if (latestRoutineTitleList === null) return;
+
+        setRoutineTitleList(JSON.parse(latestRoutineTitleList) as string[]);
       } catch (error) {
         console.log(error);
       }

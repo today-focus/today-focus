@@ -5,15 +5,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import getDateFormat from "../utils/getDateFormat";
 
-type Props = {
+interface IProps {
   cardTitle: string;
   setRoutineTitleList: Dispatch<SetStateAction<string[]>>;
-};
+}
 
 export default function CardTitle({
   cardTitle: prevRoutineTitle,
   setRoutineTitleList,
-}: Props) {
+}: IProps) {
   const [routineTitle, setRoutineTitle] = useState<string>(prevRoutineTitle);
 
   const onChangeTitle = (value: SetStateAction<string>) => {
@@ -35,15 +35,15 @@ export default function CardTitle({
       `@routine_${prevRoutineTitle}`,
     );
 
-    if (prevRoutineList !== null) {
-      if (prevRoutineList.length === 0) {
-        await AsyncStorage.setItem(
-          `@routine_${routineTitle}`,
-          JSON.stringify(initialTodoList),
-        );
-      } else {
-        await AsyncStorage.setItem(`@routine_${routineTitle}`, prevRoutineList);
-      }
+    if (prevRoutineList === null) return;
+
+    if (prevRoutineList.length === 0) {
+      await AsyncStorage.setItem(
+        `@routine_${routineTitle}`,
+        JSON.stringify(initialTodoList),
+      );
+    } else {
+      await AsyncStorage.setItem(`@routine_${routineTitle}`, prevRoutineList);
     }
 
     await AsyncStorage.removeItem(`@routine_${prevRoutineTitle}`);
@@ -52,20 +52,20 @@ export default function CardTitle({
   const updateRoutineTitleList = async () => {
     const routineTitleList = await AsyncStorage.getItem("@routineTitleList");
 
-    if (routineTitleList !== null) {
-      const copyRoutineTitleList = JSON.parse(routineTitleList);
+    if (routineTitleList === null) return;
 
-      const prevTitleIndex = copyRoutineTitleList.indexOf(prevRoutineTitle);
+    const copyRoutineTitleList = JSON.parse(routineTitleList);
 
-      copyRoutineTitleList[prevTitleIndex] = routineTitle;
+    const prevTitleIndex = copyRoutineTitleList.indexOf(prevRoutineTitle);
 
-      await AsyncStorage.setItem(
-        "@routineTitleList",
-        JSON.stringify(copyRoutineTitleList),
-      );
+    copyRoutineTitleList[prevTitleIndex] = routineTitle;
 
-      setRoutineTitleList(copyRoutineTitleList as SetStateAction<string[]>);
-    }
+    await AsyncStorage.setItem(
+      "@routineTitleList",
+      JSON.stringify(copyRoutineTitleList),
+    );
+
+    setRoutineTitleList(copyRoutineTitleList as SetStateAction<string[]>);
   };
 
   const handleEndEditing = async () => {
