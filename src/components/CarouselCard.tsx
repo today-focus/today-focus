@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ICarouselStyle, TodoItemType } from "../types";
 
 import TodoList from "./TodoList";
+import RoutineTemplate from "./RoutineTemplate";
 import CardTitle from "../features/CardTitle";
 
 interface IProps extends ICarouselStyle {
@@ -80,18 +81,23 @@ export default function CarouselCard({
       ]}
     >
       {cardIndex !== cardTitleList.length - 1 && (
-        <CardTitle
-          cardTitle={cardTitleList[cardIndex]}
+        <>
+          <CardTitle
+            cardTitle={cardTitleList[cardIndex]}
+            setRoutineTitleList={setRoutineTitleList}
+          />
+          <TodoList
+            todoItemList={todoItemList}
+            storageKey={`@routine_${cardTitleList[cardIndex]}`}
+          />
+        </>
+      )}
+      {cardIndex === cardTitleList.length - 1 && (
+        <RoutineTemplate
+          cardTitleList={cardTitleList}
           setRoutineTitleList={setRoutineTitleList}
         />
       )}
-      <TodoList
-        cardTitleList={cardTitleList}
-        cardIndex={cardIndex}
-        setRoutineTitleList={setRoutineTitleList}
-        todoItemList={todoItemList}
-        storageKey={`@routine_${cardTitleList[cardIndex]}`}
-      />
     </Animated.View>
   );
 }
