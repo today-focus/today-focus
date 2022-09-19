@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import { Animated } from "react-native";
 
 export type RootStackParamList = {
@@ -15,9 +14,6 @@ export type TodoItemType = {
 }
 
 export type TodoListItem = {
-  cardTitleList: string[];
-  cardIndex: number;
-  setRoutineTitleList: Dispatch<SetStateAction<string[]>>;
   todoItemList: TodoItemType[];
   storageKey?: string;
 }

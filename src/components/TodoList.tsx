@@ -6,12 +6,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TodoItemType, TodoListItem } from "../types";
 
 import TodoItem from "./TodoItem";
-import RoutineTemplate from "./RoutineTemplate";
 
 export default function TodoList({
-  cardTitleList,
-  cardIndex,
-  setRoutineTitleList,
   todoItemList,
   storageKey = "@todos_today",
 }: TodoListItem) {
@@ -48,7 +44,7 @@ export default function TodoList({
       if (index + 1 === todos.length) {
         const newTodo = {
           id: Date.now(),
-          routineTitle: `${cardTitleList[cardIndex]}`,
+          routineTitle: `${todoItemList[index].routineTitle}`,
           text: "",
           isChecked: false,
         };
@@ -97,9 +93,7 @@ export default function TodoList({
     item: TodoItemType;
     index: number;
   }) => {
-    const routineCardLastIndex = cardTitleList.length - 1;
-
-    return cardIndex !== routineCardLastIndex ? (
+    return (
       <TodoItem
         id={item.id}
         text={item.text}
@@ -116,11 +110,6 @@ export default function TodoList({
         onDeleteTodo={() => {
           onDeleteTodo(index);
         }}
-      />
-    ) : (
-      <RoutineTemplate
-        cardTitleList={cardTitleList}
-        setRoutineTitleList={setRoutineTitleList}
       />
     );
   };
