@@ -14,13 +14,14 @@ import {
 
 import TitleInput from "../components/TitleInput";
 import Routine from "../components/Routine";
-import BottomDrawer from "../components/BottomDrawer";
-// import TodoList from "../components/TodoList";
+import RoutineTodoList from "../components/RoutineTodoList";
 import RenderModal from "../components/RenderModal";
+import BottomDrawer from "../components/BottomDrawer";
 
 export default function MainScreen() {
   const [date, setDate] = useState<string>("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [isModalOkPressed, setIsModalOkPressed] = useState(0);
 
   useEffect(() => {
     const today = new Date();
@@ -52,10 +53,11 @@ export default function MainScreen() {
             <View style={styles.todayRoutineContainer}>
               <TitleInput />
               <Routine />
-              {/* <TodoList /> */}
+              <RoutineTodoList isModalOkPressed={isModalOkPressed} />
               <RenderModal
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
+                setIsModalOkPressed={setIsModalOkPressed}
               />
             </View>
           </TouchableWithoutFeedback>
