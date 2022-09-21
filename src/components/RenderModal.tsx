@@ -5,11 +5,17 @@ import { Alert, Modal, Pressable, StyleSheet, Text, View } from "react-native";
 export default function RenderModal({
   modalVisible,
   setModalVisible,
+  setIsModalOkPressed,
 }: {
   modalVisible: boolean;
   setModalVisible: React.Dispatch<SetStateAction<boolean>>;
+  setIsModalOkPressed: React.Dispatch<SetStateAction<number>>;
 }) {
-  const onOkPress = () => {};
+  const onOkPress = () => {
+    setIsModalOkPressed(Date.now());
+
+    setModalVisible(false);
+  };
 
   return (
     <View style={styles.centeredView}>

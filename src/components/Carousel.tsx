@@ -1,5 +1,6 @@
 import { useRef, Dispatch, SetStateAction } from "react";
 import { Animated, Pressable, StyleSheet, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { ICarouselStyle } from "../types";
 
@@ -37,6 +38,12 @@ export default function Carousel({
 
   const cardTitleList = routineTitleList.concat("routineTemplate");
 
+  const onRenderModal = (index: number) => {
+    setModalVisible(true);
+
+    AsyncStorage.setItem("@current_routineTemplate", index.toString());
+  };
+
   return (
     <View style={styles.carouselContainer}>
       <Animated.FlatList
@@ -49,7 +56,7 @@ export default function Carousel({
         onScroll={onScrollEvent}
         pagingEnabled
         renderItem={({ index }) => (
-          <Pressable onLongPress={() => setModalVisible(true)}>
+          <Pressable onLongPress={() => onRenderModal(index)}>
             <CarouselCard
               cardTitleList={cardTitleList}
               cardIndex={index}
