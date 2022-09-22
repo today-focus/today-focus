@@ -12,6 +12,7 @@ import { AntDesign, Entypo, MaterialIcons } from "@expo/vector-icons";
 
 export default function TodoItem({
   id,
+  index,
   text,
   isChecked,
   onCheckboxPress,
@@ -20,6 +21,7 @@ export default function TodoItem({
   onDeleteTodo,
 }: {
   id: number;
+  index: number;
   text: string;
   isChecked: boolean;
   onCheckboxPress?: () => void;
@@ -28,6 +30,18 @@ export default function TodoItem({
   onDeleteTodo?: () => void;
 }) {
   const onDragNDrop = () => {};
+
+  const handleKeyPress = ({
+    nativeEvent: { key: keyValue },
+  }: {
+    nativeEvent: { key: string };
+  }) => {
+    if (keyValue === "Backspace" && text === "" && index !== 0) {
+      if (!onDeleteTodo) return;
+
+      onDeleteTodo();
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -50,6 +64,7 @@ export default function TodoItem({
           value={text}
           onChangeText={onChangeText}
           onSubmitEditing={onSaveTodo}
+          onKeyPress={handleKeyPress}
         />
         <TouchableOpacity onPress={onDeleteTodo} activeOpacity={0.5}>
           {text !== "" && <AntDesign name="delete" size={20} color="#808080" />}
