@@ -39,8 +39,6 @@ export default function TodoList({
 
   const onSaveTodo = async (index: number) => {
     try {
-      await AsyncStorage.setItem(storageKey, JSON.stringify(todos));
-
       if (index + 1 === todos.length) {
         const newTodo = {
           id: Date.now(),
@@ -49,6 +47,10 @@ export default function TodoList({
           isChecked: false,
         };
 
+        await AsyncStorage.setItem(
+          storageKey,
+          JSON.stringify([...todos, newTodo]),
+        );
         setTodos(prevTodos => [...prevTodos, newTodo]);
       }
     } catch (error) {
@@ -96,6 +98,7 @@ export default function TodoList({
     return (
       <TodoItem
         id={item.id}
+        index={index}
         text={item.text}
         isChecked={item.isChecked}
         onCheckboxPress={() => {
