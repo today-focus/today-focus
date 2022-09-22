@@ -63,7 +63,7 @@ export default function TodoItem({
           returnKeyType="done"
           value={text}
           onChangeText={onChangeText}
-          onSubmitEditing={onSaveTodo}
+          onEndEditing={onSaveTodo}
           onKeyPress={handleKeyPress}
         />
         <TouchableOpacity onPress={onDeleteTodo} activeOpacity={0.5}>
