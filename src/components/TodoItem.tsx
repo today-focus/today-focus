@@ -18,6 +18,7 @@ export default function TodoItem({
   onCheckboxPress,
   onChangeText,
   onSaveTodo,
+  onEditTodo,
   onDeleteTodo,
 }: {
   id: number;
@@ -27,6 +28,7 @@ export default function TodoItem({
   onCheckboxPress?: () => void;
   onChangeText?: (text: SetStateAction<string>) => void;
   onSaveTodo?: () => Promise<void>;
+  onEditTodo?: () => Promise<void>;
   onDeleteTodo?: () => void;
 }) {
   const onDragNDrop = () => {};
@@ -63,7 +65,8 @@ export default function TodoItem({
           returnKeyType="done"
           value={text}
           onChangeText={onChangeText}
-          onEndEditing={onSaveTodo}
+          onEndEditing={onEditTodo}
+          onSubmitEditing={onSaveTodo}
           onKeyPress={handleKeyPress}
         />
         <TouchableOpacity onPress={onDeleteTodo} activeOpacity={0.5}>

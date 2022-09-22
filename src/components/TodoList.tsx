@@ -58,6 +58,38 @@ export default function TodoList({
     }
   };
 
+  const onEditTodo = async () => {
+    try {
+      await AsyncStorage.setItem(storageKey, JSON.stringify([...todos]));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onDeleteTodo = async (index: number) => {
+    try {
+      if (todos.length === 1) {
+        const newTodos = [...todos];
+
+        newTodos[index].text = "";
+        newTodos[index].isChecked = false;
+        setTodos([...newTodos]);
+
+        return;
+      }
+
+      const newTodos = todos.filter((item, filterIndex) => {
+        return index !== filterIndex;
+      });
+
+      setTodos([...newTodos]);
+
+      await AsyncStorage.setItem(storageKey, JSON.stringify(newTodos));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const onLoadTodos = async () => {
       try {
@@ -73,20 +105,6 @@ export default function TodoList({
 
     onLoadTodos();
   }, [storageKey]);
-
-  const onDeleteTodo = async (index: number) => {
-    try {
-      const newTodos = todos.filter((item, filterIndex) => {
-        return index !== filterIndex;
-      });
-
-      setTodos([...newTodos]);
-
-      await AsyncStorage.setItem(storageKey, JSON.stringify(newTodos));
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const renderItem = ({
     item,
@@ -109,6 +127,9 @@ export default function TodoList({
         }}
         onSaveTodo={async () => {
           await onSaveTodo(index);
+        }}
+        onEditTodo={async () => {
+          await onEditTodo();
         }}
         onDeleteTodo={() => {
           onDeleteTodo(index);
