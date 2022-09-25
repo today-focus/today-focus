@@ -14,7 +14,7 @@ import {
 
 import TitleInput from "../components/TitleInput";
 import Routine from "../components/Routine";
-import RoutineTodoList from "../components/RoutineTodoList";
+import TodoList from "../components/TodoList";
 import RenderModal from "../components/RenderModal";
 import BottomDrawer from "../components/BottomDrawer";
 
@@ -53,7 +53,7 @@ export default function MainScreen() {
             <View style={styles.todayRoutineContainer}>
               <TitleInput />
               <Routine />
-              <RoutineTodoList isModalOkPressed={isModalOkPressed} />
+              <TodoList isModalOkPressed={isModalOkPressed} todoItemList={[]} />
               <RenderModal
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}

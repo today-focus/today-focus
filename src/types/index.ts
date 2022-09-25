@@ -9,7 +9,7 @@ export type RootStackParamList = {
 
 export type TodoItemType = {
   id: number;
-  routineTitle: string;
+  routineTitle?: string;
   text: string;
   isChecked: boolean;
 }
@@ -17,6 +17,7 @@ export type TodoItemType = {
 export type TodoListItem = {
   todoItemList: TodoItemType[];
   storageKey?: string;
+  isModalOkPressed?: number;
 }
 
 export interface ICarouselStyle {
