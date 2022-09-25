@@ -1,8 +1,9 @@
 import { Animated } from "react-native";
 
 export type RootStackParamList = {
-  MainScreen: undefined;
+  OnboardingScreen: undefined;
   WelcomeScreen: undefined;
+  MainScreen: undefined;
   BottomDrawer: undefined;
 }
 
