@@ -10,6 +10,7 @@ import TodoItem from "./TodoItem";
 export default function TodoList({
   todoItemList,
   storageKey = "@todos_today",
+  isModalOkPressed,
 }: TodoListItem) {
   const [todos, setTodos] = useState<TodoItemType[]>(todoItemList);
 
@@ -19,10 +20,10 @@ export default function TodoList({
     if (newTodos[index].text !== "") {
       newTodos[index].isChecked = !newTodos[index].isChecked;
 
-      setTodos([...newTodos]);
-    }
+      setTodos(() => newTodos);
 
-    await AsyncStorage.setItem(storageKey, JSON.stringify(todos));
+      await AsyncStorage.setItem(storageKey, JSON.stringify(todos));
+    }
   };
 
   const onChangeText = (index: number, text: string) => {
@@ -34,7 +35,7 @@ export default function TodoList({
       newTodos[index].isChecked = false;
     }
 
-    setTodos([...newTodos]);
+    setTodos(() => newTodos);
   };
 
   const onSaveTodo = async (index: number) => {
@@ -42,7 +43,7 @@ export default function TodoList({
       if (index + 1 === todos.length) {
         const newTodo = {
           id: Date.now(),
-          routineTitle: `${todoItemList[index].routineTitle}`,
+          routineTitle: `${todoItemList[index].routineTitle!}`,
           text: "",
           isChecked: false,
         };
@@ -82,7 +83,7 @@ export default function TodoList({
         return index !== filterIndex;
       });
 
-      setTodos([...newTodos]);
+      setTodos(() => newTodos);
 
       await AsyncStorage.setItem(storageKey, JSON.stringify(newTodos));
     } catch (error) {
@@ -105,6 +106,47 @@ export default function TodoList({
 
     onLoadTodos();
   }, [storageKey]);
+
+  useEffect(() => {
+    const routineItemList = async () => {
+      try {
+        const index = Number(
+          await AsyncStorage.getItem("@current_routineTemplate"),
+        );
+        const routineTemplateIds = JSON.parse(
+          String(await AsyncStorage.getItem("@routineTitleList")),
+        ) as string[];
+        const routineTemplate = JSON.parse(
+          String(
+            await AsyncStorage.getItem(`@routine_${routineTemplateIds[index]}`),
+          ),
+        ) as TodoItemType[];
+        const newTodos = [
+          ...routineTemplate
+            .map(routineTemplateItem => ({
+              id: routineTemplateItem.id,
+              text: routineTemplateItem.text,
+              isChecked: routineTemplateItem.isChecked,
+            }))
+            .filter(
+              routineTemplateItem =>
+                !todos.map(todo => todo.id).includes(routineTemplateItem.id),
+            ),
+          ...todos,
+        ];
+
+        setTodos(() => newTodos);
+
+        await AsyncStorage.setItem(storageKey, JSON.stringify(newTodos));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (isModalOkPressed !== 0 && storageKey === "@todos_today") {
+      routineItemList();
+    }
+  }, [isModalOkPressed, storageKey]);
 
   const renderItem = ({
     item,
