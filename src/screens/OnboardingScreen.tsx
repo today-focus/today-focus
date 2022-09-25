@@ -128,7 +128,7 @@ export default function OnboardingScreen({ navigation }: Props) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <View style={{ height: screenHeight * 0.75, backgroundColor: "#fff" }}>
+      <View style={{ height: screenHeight * 0.7, backgroundColor: "#fff" }}>
         <Animated.FlatList
           automaticallyAdjustContentInsets={false}
           data={onboardingSlides}
