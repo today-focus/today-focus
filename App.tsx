@@ -16,6 +16,10 @@ const Stack = createStackNavigator<RootStackParamList>();
 export default function App() {
   const [isOnboarded, setIsOnboarded] = useState<string | null>(null);
 
+  // useEffect(() => {
+  //   AsyncStorage.clear();
+  // });
+
   useEffect(() => {
     const getInitialValue = async () => {
       try {
