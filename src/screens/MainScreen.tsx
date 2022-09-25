@@ -53,7 +53,16 @@ export default function MainScreen() {
             <View style={styles.todayRoutineContainer}>
               <TitleInput />
               <Routine />
-              <TodoList isModalOkPressed={isModalOkPressed} todoItemList={[]} />
+              <TodoList
+                isModalOkPressed={isModalOkPressed}
+                todoItemList={[
+                  {
+                    id: Date.now(),
+                    text: "",
+                    isChecked: false,
+                  },
+                ]}
+              />
               <RenderModal
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
