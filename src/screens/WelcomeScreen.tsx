@@ -12,11 +12,11 @@ import { RootStackParamList } from "../types";
 
 type Props = StackScreenProps<RootStackParamList, "WelcomeScreen">;
 
-function WelcomeScreen({ navigation }: Props) {
+export default function WelcomeScreen({ navigation }: Props) {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        navigation.navigate("MainScreen");
+        navigation.replace("MainScreen");
       }}
     >
       <View style={styles.container}>
@@ -43,5 +43,3 @@ const styles = StyleSheet.create({
     height: 60,
   },
 });
-
-export default WelcomeScreen;
