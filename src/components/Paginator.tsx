@@ -57,9 +57,9 @@ const styles = StyleSheet.create({
   indicator: {
     width: 12,
     height: 6,
-    backgroundColor: "#fff",
     marginTop: 15,
     marginHorizontal: 5,
     borderRadius: 50,
+    backgroundColor: "#C6C2C2",
   },
 });
