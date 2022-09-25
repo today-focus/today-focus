@@ -38,7 +38,7 @@ export default function App() {
     <NavigationContainer>
       {isOnboarded !== null && (
         <Stack.Navigator>
-          {isOnboarded === "true" && (
+          {isOnboarded === "false" && (
             <>
               <Stack.Screen
                 name="OnboardingScreen"
