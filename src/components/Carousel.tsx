@@ -96,8 +96,4 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 2,
   },
-  indicatorContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-  },
 });
