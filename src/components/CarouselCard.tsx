@@ -1,5 +1,5 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
-import { Animated, Dimensions, StyleSheet } from "react-native";
+import { Animated, Dimensions, StyleSheet, View } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -8,6 +8,7 @@ import { ICarouselStyle, TodoItemType } from "../types";
 import TodoList from "./TodoList";
 import RoutineTemplate from "./RoutineTemplate";
 import CardTitle from "../features/CardTitle";
+import DeleteRoutine from "../features/DeleteRoutine";
 
 interface IProps extends ICarouselStyle {
   cardTitleList: string[];
@@ -82,6 +83,11 @@ export default function CarouselCard({
     >
       {cardIndex !== cardTitleList.length - 1 && (
         <>
+          <DeleteRoutine
+            cardTitleList={cardTitleList}
+            cardIndex={cardIndex}
+            setRoutineTitleList={setRoutineTitleList}
+          />
           <CardTitle
             cardTitle={cardTitleList[cardIndex]}
             setRoutineTitleList={setRoutineTitleList}
