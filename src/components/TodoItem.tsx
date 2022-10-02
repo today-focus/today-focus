@@ -70,7 +70,7 @@ export default function TodoItem({
           onKeyPress={handleKeyPress}
         />
         <TouchableOpacity onPress={onDeleteTodo} activeOpacity={0.5}>
-          {text !== "" && <AntDesign name="delete" size={20} color="#808080" />}
+          {text !== "" && <AntDesign name="delete" size={16} color="#808080" />}
         </TouchableOpacity>
       </View>
     </View>
@@ -100,11 +100,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   textInput: {
-    width: "100%",
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
+    paddingRight: 5,
   },
   todoInput: {
+    flex: 1,
     fontSize: 15,
     backgroundColor: "#fff",
     justifyContent: "center",
@@ -117,7 +120,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "line-through",
     textDecorationStyle: "solid",
     color: "#808080",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#fff",
     justifyContent: "center",
     paddingVertical: 10,
     paddingHorizontal: 5,
