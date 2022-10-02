@@ -18,35 +18,37 @@ export default function RenderModal({
   };
 
   return (
-    <View style={styles.centeredView}>
+    <View>
       {modalVisible && (
-        <Modal
-          animationType="slide"
-          transparent
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
 
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>Add more task?</Text>
-              <View style={styles.contentView}>
-                <Pressable
-                  style={styles.button}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={styles.cancelBtn}>Cancel</Text>
-                </Pressable>
-                <Pressable style={styles.button} onPress={onOkPress}>
-                  <Text style={styles.okBtn}>Ok</Text>
-                </Pressable>
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>Add more task?</Text>
+                <View style={styles.contentView}>
+                  <Pressable
+                    style={styles.button}
+                    onPress={() => setModalVisible(!modalVisible)}
+                  >
+                    <Text style={styles.cancelBtn}>Cancel</Text>
+                  </Pressable>
+                  <Pressable style={styles.button} onPress={onOkPress}>
+                    <Text style={styles.okBtn}>Ok</Text>
+                  </Pressable>
+                </View>
               </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
+        </View>
       )}
     </View>
   );
