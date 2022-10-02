@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   routineLabel: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: "700",
     color: "#006de9",
     paddingHorizontal: 20,
