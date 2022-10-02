@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -74,8 +74,9 @@ export default function CardTitle({
   };
 
   return (
-    <View>
+    <View style={styles.textInput}>
       <TextInput
+        style={styles.titleInput}
         value={routineTitle}
         onChangeText={onChangeTitle}
         onEndEditing={handleEndEditing}
@@ -83,3 +84,22 @@ export default function CardTitle({
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  textInput: {
+    marginBottom: 10,
+  },
+  titleInput: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#006de9",
+    backgroundColor: "#fff",
+    borderBottomWidth: 0.5,
+    borderColor: "#808080",
+    justifyContent: "center",
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    marginHorizontal: 20,
+    marginTop: 12,
+  },
+});
