@@ -21,7 +21,6 @@ export default function DeleteRoutine({
       title => title !== cardTitleList[cardIndex],
     );
 
-    console.log("newRoutineTitleList :", newRoutineTitleList);
     setRoutineTitleList(newRoutineTitleList);
 
     await AsyncStorage.removeItem(`@routine_${cardTitleList[cardIndex]}`);
