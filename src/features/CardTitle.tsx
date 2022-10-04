@@ -4,6 +4,7 @@ import { StyleSheet, TextInput, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import getDateFormat from "../utils/getDateFormat";
+import { TodoItemType } from "../types";
 
 interface IProps {
   cardTitle: string;
@@ -43,7 +44,16 @@ export default function CardTitle({
         JSON.stringify(initialTodoList),
       );
     } else {
-      await AsyncStorage.setItem(`@routine_${routineTitle}`, prevRoutineList);
+      const newPrevRoutineList = JSON.parse(prevRoutineList).map(
+        (item: TodoItemType) => {
+          return { ...item, routineTitle };
+        },
+      );
+
+      await AsyncStorage.setItem(
+        `@routine_${routineTitle}`,
+        JSON.stringify(newPrevRoutineList),
+      );
     }
 
     await AsyncStorage.removeItem(`@routine_${prevRoutineTitle}`);
