@@ -43,7 +43,7 @@ export default function TodoList({
       if (index + 1 === todos.length) {
         const newTodo = {
           id: Date.now(),
-          routineTitle: `${todoItemList[index].routineTitle!}`,
+          routineTitle: todos[index].routineTitle,
           text: "",
           isChecked: false,
         };
