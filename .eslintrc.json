@@ -26,6 +26,10 @@
     "no-console": "off",
     "func-names": "off",
     "react/style-prop-object": "warn",
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".tsx"] }
+    ],
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-use-before-define": [
@@ -42,6 +46,9 @@
     "react-hooks/exhaustive-deps": "warn",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-misused-promises": "off",
-    "@typescript-eslint/no-floating-promises": "off"
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-var-requires": "warn",
+    "@typescript-eslint/no-unsafe-return": "warn",
+    "global-require": "warn"
   }
 }
